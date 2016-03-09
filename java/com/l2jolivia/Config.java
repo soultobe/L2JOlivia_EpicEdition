@@ -840,7 +840,8 @@ public final class Config
 	public static boolean PC_BANG_RANDOM_POINT;
 	public static boolean PC_BANG_REWARD_LOW_EXP_KILLS;
 	public static int PC_BANG_LOW_EXP_KILLS_CHANCE;
-	
+	public static String OLIVIA_CONFIG;
+	public static String OLIVIA_LICENCE;
 	// --------------------------------------------------
 	// NPC Settings
 	// --------------------------------------------------
@@ -2695,6 +2696,8 @@ public final class Config
 			{
 				PC_BANG_LOW_EXP_KILLS_CHANCE = 100;
 			}
+			OLIVIA_CONFIG = CustomSettings.getString("OliviaHostname", "");
+			OLIVIA_LICENCE = CustomSettings.getString("OliviaLicence", "");
 			
 			// Load PvP L2Properties file (if exists)
 			final PropertiesParser PVPSettings = new PropertiesParser(PVP_CONFIG_FILE);

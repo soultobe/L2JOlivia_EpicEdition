@@ -23,7 +23,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -423,6 +428,11 @@ public final class GameServer
 		_log.info(getClass().getSimpleName() + ": Maximum number of connected players is " + Config.MAXIMUM_ONLINE_USERS + ".");
 		_log.info(getClass().getSimpleName() + ": Server loaded in " + ((System.currentTimeMillis() - serverLoadStart) / 1000) + " seconds.");
 		
+		_log.log(Level.INFO, getClass().getSimpleName() + ": ########################################### ");
+		_log.log(Level.INFO, getClass().getSimpleName() + ": ###       New Olivia Server Start       ### ");
+		_log.log(Level.INFO, getClass().getSimpleName() + ": ###           Team Of Olivia            ### ");
+		_log.log(Level.INFO, getClass().getSimpleName() + ": ########################################### ");
+		
 		final SelectorConfig sc = new SelectorConfig();
 		sc.MAX_READ_PER_PASS = Config.MMO_MAX_READ_PER_PASS;
 		sc.MAX_SEND_PER_PASS = Config.MMO_MAX_SEND_PER_PASS;
@@ -481,7 +491,27 @@ public final class GameServer
 		Config.load();
 		printSection("Database");
 		DatabaseFactory.getInstance();
-		gameServer = new GameServer();
+		if (Config.OLIVIA_CONFIG.equals(Config.GAMESERVER_HOSTNAME) == true)
+		{
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+			Date date = new Date();
+			String today = df.format(date);
+			Date ServerDate = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH).parse(today);
+			Date LicenceDate = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH).parse(base64Decode(Config.OLIVIA_LICENCE));
+			
+			if (LicenceDate.after(ServerDate))
+			{
+				gameServer = new GameServer();
+			}
+			else
+			{
+				_log.info(GameServer.class.getSimpleName() + ": Olivia Server is Licence Check fail.");
+			}
+		}
+		else
+		{
+			_log.info(GameServer.class.getSimpleName() + ": Olivia Server is currently disabled.");
+		}
 		
 		if (Config.IS_TELNET_ENABLED)
 		{
@@ -518,4 +548,12 @@ public final class GameServer
 		}
 		_log.info(s);
 	}
+	
+	public static String base64Decode(String str)
+	{
+		Decoder decoder = Base64.getDecoder();
+		byte[] b1 = decoder.decode(str);
+		return new String(b1).substring(0, 8);
+	}
+	
 }
