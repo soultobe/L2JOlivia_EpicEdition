@@ -842,6 +842,11 @@ public final class Config
 	public static int PC_BANG_LOW_EXP_KILLS_CHANCE;
 	public static String OLIVIA_CONFIG;
 	public static String OLIVIA_LICENCE;
+	public static boolean ANTIBOT_ENABLE;
+	public static int ANTIBOT_LEVEL;
+	public static int ANTIBOT_INPUTTIME;
+	public static String ANTIBOT_MSG;
+	
 	// --------------------------------------------------
 	// NPC Settings
 	// --------------------------------------------------
@@ -2698,6 +2703,10 @@ public final class Config
 			}
 			OLIVIA_CONFIG = CustomSettings.getString("OliviaHostname", "");
 			OLIVIA_LICENCE = CustomSettings.getString("OliviaLicence", "");
+			ANTIBOT_ENABLE = CustomSettings.getBoolean("EnabledAntiBot", false);
+			ANTIBOT_LEVEL = CustomSettings.getInt("AntiBotLevel", 1);
+			ANTIBOT_INPUTTIME = CustomSettings.getInt("AntiBotInputTime", 1);
+			ANTIBOT_MSG = CustomSettings.getString("AntiBotMsg", "");
 			
 			// Load PvP L2Properties file (if exists)
 			final PropertiesParser PVPSettings = new PropertiesParser(PVP_CONFIG_FILE);

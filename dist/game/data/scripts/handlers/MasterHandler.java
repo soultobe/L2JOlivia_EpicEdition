@@ -275,6 +275,7 @@ import handlers.usercommandhandlers.PartyInfo;
 import handlers.usercommandhandlers.SiegeStatus;
 import handlers.usercommandhandlers.Time;
 import handlers.usercommandhandlers.Unstuck;
+import handlers.voicedcommandhandlers.AntiBot;
 import handlers.voicedcommandhandlers.Banking;
 import handlers.voicedcommandhandlers.ChangePassword;
 import handlers.voicedcommandhandlers.ChatAdmin;
@@ -544,6 +545,7 @@ final class MasterHandler
 			(Config.L2JMOD_DEBUG_VOICE_COMMAND ? Debug.class : null),
 			(Config.L2JMOD_ALLOW_CHANGE_PASSWORD ? ChangePassword.class : null),
 			(Config.PREMIUM_SYSTEM_ENABLED ? Premium.class : null),
+			(Config.ANTIBOT_ENABLE ? AntiBot.class : null),
 		},
 		{
 			// Target Handlers
